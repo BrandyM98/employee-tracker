@@ -22,7 +22,7 @@ class DB {
     }
     addDepartment(name) {
         // return this.connection.promise().query('INSERT INTO department (name) SET (?)', name)
-        return this.connection.promise().query('ALTER TABLER department ADD newDepartment')
+        return this.connection.promise().query('INSERT INTO department (name) VALUES (?)', name)
         //trying to get input to be added to table and table to show in terminal
         
         // console.log(response.newDepartment + " department was successfully added!");

@@ -1,5 +1,6 @@
 const inquirer = require('inquirer');
 const { default: Choices } = require('inquirer/lib/objects/choices');
+const { viewEmployees, viewRoles } = require('./db');
 require('console.table');
 const db = require('./db');
 
@@ -115,9 +116,11 @@ function addADepartment() {
             name: 'newDepartment',
         }
     ]).then(function (response) {
-        var deptartmentName = response.newDepartment
-        db.addDepartment(response.departmentName)
-            .then(([department]) => {
+        var departmentName = response.newDepartment
+        // console.log(department, "add Department")
+        db.addDepartment(departmentName)
+        .then(([department]) => {
+            // console.log(department, "add Department")
                 console.table(department)
                 init()
             })
@@ -133,7 +136,7 @@ function addARole() {
             name: 'newRole',
         }
     ]).then(function (response) {
-        var roleName = respnse.newRole
+        var roleName = response.newRole
         db.addRole(response.roleName)
             .then(([role]) => {
                 console.table(role)
@@ -151,7 +154,7 @@ function addAnEmployee() {
             name: 'newEmployee',
         }
     ]).then(function (response) {
-        var employeeName = respnse.newEmployee
+        var employeeName = response.newEmployee
         db.addEmployee(response.employeeName)
             .then(([employee]) => {
                 console.table(employee)
@@ -166,12 +169,18 @@ function updateAnEmployee() {
         {
             type: 'list',
             message: 'Which employee has a new role?',
-            name: 'updatedEmployee',
-            choices: [
-                //add choices?
-            ],
-        }
-    ]).then(function (response) {})
+            name: 'employee',
+            choices: viewEmployees,
+        },
+        {
+            type: 'list',
+            message: 'What is this employees new role?',
+            name: 'employeeNewRole',
+            choices: viewRoles,
+        },
+
+    ]).then(function (response) {}
+    )
     }
 
 
