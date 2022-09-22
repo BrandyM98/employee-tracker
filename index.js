@@ -111,13 +111,17 @@ function addADepartment() {
             name: 'newDepartment',
         }
     ]).then(function (response) {
-        db.addDepartment(response.newDepartment)
+        var deptartmentName =respnse.newDepartment
+        db.addDepartment(response.departmentName)
             .then(([department]) => {
                 console.table(department)
                 init()
             })
     })
 }
+
+//exit function
+
 
 
 
