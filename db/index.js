@@ -18,7 +18,7 @@ viewEmployees () {
     return this.connection.promise().query('SELECT * FROM employee')
 }
 addDepartment () {
-    return this.connection.promise().query('SELECT * FROM employee')
+    return this.connection.promise().query('INSERT INTO department (name)')
 }
 }
 
