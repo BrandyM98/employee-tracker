@@ -16,6 +16,7 @@ class DB {
     }
     viewEmployees() {
         return this.connection.promise().query('SELECT * FROM employee')
+        //need to bring in department and salary
     }
     addDepartment (name) {
         return this.connection.promise().query('INSERT INTO department (name) VALUES (?)', name)
@@ -26,6 +27,7 @@ class DB {
     addEmployee(name) {
         return this.connection.promise().query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?)', name)
     }
+    //add query for update employee role
 }
 
 module.exports = new DB(connection)

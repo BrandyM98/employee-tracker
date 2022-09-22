@@ -6,7 +6,7 @@ const db = require('./db');
 //inquirer prompt
 
 function init() {
-   await inquirer.prompt([
+    inquirer.prompt([
         {
             type: 'list',
             message: 'What would you like to view, add, update, or delete?',
@@ -15,22 +15,23 @@ function init() {
                 'View all departments',
                 'View all roles',
                 'View all employees',
-                'View employees by manager',
-                'View employees by department',
                 'Add a department',
+                'Add a role',
                 'Add an employee',
-                'Update employee managers',
                 'Update employee role',
-                'Delete a department',
-                'Delete a role',
-                'Delete an employee',
-                'Exit',
+                // 'View employees by manager',
+                // 'View employees by department',
+                // 'Update employee managers',
+                // 'Delete a department',
+                // 'Delete a role',
+                // 'Delete an employee',
+                // 'Exit',
             ],
         }
     ]).then((response) => {
         //what is chosen will send to another function
         switch (response.options) {
-            case 'View departments':
+            case 'View all departments':
                 viewAllDepartments()
                 break;
             case 'View all roles':
@@ -114,7 +115,7 @@ function addADepartment() {
             name: 'newDepartment',
         }
     ]).then(function (response) {
-        var deptartmentName =respnse.newDepartment
+        var deptartmentName = respnse.newDepartment
         db.addDepartment(response.departmentName)
             .then(([department]) => {
                 console.table(department)
@@ -132,7 +133,7 @@ function addARole() {
             name: 'newRole',
         }
     ]).then(function (response) {
-        var roleName =respnse.newRole
+        var roleName = respnse.newRole
         db.addRole(response.roleName)
             .then(([role]) => {
                 console.table(role)
@@ -150,7 +151,7 @@ function addAnEmployee() {
             name: 'newEmployee',
         }
     ]).then(function (response) {
-        var employeeName =respnse.newEmployee
+        var employeeName = respnse.newEmployee
         db.addEmployee(response.employeeName)
             .then(([employee]) => {
                 console.table(employee)
@@ -160,6 +161,18 @@ function addAnEmployee() {
 }
 
 //update an employee role function
+function updateAnEmployee() {
+    inquirer.prompt([
+        {
+            type: 'list',
+            message: 'Which employee has a new role?',
+            name: 'updatedEmployee',
+            choices: [
+                //add choices?
+            ],
+        }
+    ]).then(function (response) {})
+    }
 
 
 //exit function
