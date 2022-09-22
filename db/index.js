@@ -21,7 +21,8 @@ class DB {
         return this.connection.promise().query('SELECT employee.id AS ID, employee.first_name AS FirstName, employee.last_name AS LastName, role.title AS Title, department.name AS Department, role.salary AS Salary, CONCAT (manager.first_name,manager.last_name) AS Manager FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee manager ON employee.manager_id = manager.id;')
     }
     addDepartment(name) {
-        return this.connection.promise().query('INSERT INTO department (name) VALUES (?)', name)
+        // return this.connection.promise().query('INSERT INTO department (name) SET (?)', name)
+        return this.connection.promise().query('ALTER TABLER department ADD newDepartment')
         //trying to get input to be added to table and table to show in terminal
         
         // console.log(response.newDepartment + " department was successfully added!");
@@ -33,7 +34,7 @@ class DB {
     addEmployee(name) {
         return this.connection.promise().query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?)', name)
     }
-    //add query for update employee role
+    //add query for update employee role //use SET
 }
 
 module.exports = new DB(connection)
