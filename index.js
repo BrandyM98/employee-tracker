@@ -110,13 +110,16 @@ function addADepartment() {
             message: 'Please enter new department name.',
             name: 'newDepartment',
         }
-    ])
-    db.addDepartment()
-        .then(([department]) => {
-            console.table(department)
-            init()
-        })
+    ]).then(function (response) {
+        db.addDepartment(response.newDepartment)
+            .then(([department]) => {
+                console.table(department)
+                init()
+            })
+    })
 }
+
+
 
 
 
