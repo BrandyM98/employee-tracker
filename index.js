@@ -115,7 +115,7 @@ function addADepartment() {
             name: 'newDepartment',
         }
     ]).then(function (response) {
-        var deptartmentName = respnse.newDepartment
+        var deptartmentName = response.newDepartment
         db.addDepartment(response.departmentName)
             .then(([department]) => {
                 console.table(department)
