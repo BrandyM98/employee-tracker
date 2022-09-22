@@ -6,7 +6,7 @@ const db = require('./db');
 //inquirer prompt
 
 function init() {
-    inquirer.prompt([
+   await inquirer.prompt([
         {
             type: 'list',
             message: 'What would you like to view, add, update, or delete?',
@@ -42,30 +42,33 @@ function init() {
             case 'Add a department':
                 addADepartment()
                 break;
+            case 'Add a role':
+                addARole()
+                break;
             case 'Add an employee':
                 addAnEmployee()
                 break;
             case 'Update employee role':
                 updateEmployeeRole()
                 break;
-            case 'Update employee managers':
-                updateEmployeeManagers()
-                break;
-            case 'View employees by manager':
-                viewEmployeesByManager()
-                break;
-            case 'View employees by department':
-                viewEmployeesByDepartment()
-                break;
-            case 'Delete a department':
-                deleteADepartment()
-                break;
-            case 'Delete a role':
-                deleteARole()
-                break;
-            case 'Delete an employee':
-                deleteAnEmployee()
-                break;
+            // case 'Update employee managers':
+            //     updateEmployeeManagers()
+            //     break;
+            // case 'View employees by manager':
+            //     viewEmployeesByManager()
+            //     break;
+            // case 'View employees by department':
+            //     viewEmployeesByDepartment()
+            //     break;
+            // case 'Delete a department':
+            //     deleteADepartment()
+            //     break;
+            // case 'Delete a role':
+            //     deleteARole()
+            //     break;
+            // case 'Delete an employee':
+            //     deleteAnEmployee()
+            //     break;
             case 'Exit':
                 connetion.end()
                 break;
@@ -120,15 +123,57 @@ function addADepartment() {
     })
 }
 
+// Add a role function & prompt
+function addARole() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'Please enter new role name.',
+            name: 'newRole',
+        }
+    ]).then(function (response) {
+        var roleName =respnse.newRole
+        db.addRole(response.roleName)
+            .then(([role]) => {
+                console.table(role)
+                init()
+            })
+    })
+}
+
+// Add an employee function & prompt
+function addAnEmployee() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'Please enter new employee name.',
+            name: 'newEmployee',
+        }
+    ]).then(function (response) {
+        var employeeName =respnse.newEmployee
+        db.addEmployee(response.employeeName)
+            .then(([employee]) => {
+                console.table(employee)
+                init()
+            })
+    })
+}
+
+//update an employee role function
+
+
 //exit function
 
 
+init();
 
 
 
 
-// 'Add an employee':
-// 'Update employee role':
+
+
+//these are for bonus!
+
 // 'Update employee managers':
 // 'View employees by manager':
 // 'View employees by department':
