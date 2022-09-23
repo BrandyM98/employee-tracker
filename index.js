@@ -131,30 +131,32 @@ function addADepartment() {
 // Add a role function & prompt
 function addARole() {
     inquirer.prompt([
-        {
-            type: 'input',
-            message: 'Please enter new role for employee.',
-            name: 'newEmployee',
-        },
-        {
-            type: 'input',
-            message: 'Please enter the salary amount.',
-            name: 'newEmployeeSalary',
-        },
-        {
-            type: 'input',
-            message: 'Please enter the department ID for this new role.',
-            name: 'newEmployeeId',
-        }
+            {
+                type: 'input',
+                message: 'Please enter new role for employee.',
+                name: 'newEmployee',
+            },
+            {
+                type: 'input',
+                message: 'Please enter the salary amount.',
+                name: 'newEmployeeSalary',
+            },
+            {
+                type: 'list',
+                message: 'Which department does this employee belong to.',
+                name: 'newEmployeeDepartment',
+            }
     ]).then(function (response) {
         var roleName = response.newEmployee
-        db.addRole(response.roleName, response.newEmployeeSalary,response.newEmployeeId)
+        db.addRole(response.newEmployee, response.newEmployeeSalary,response.newEmployeeId)
             .then(([role]) => {
-                console.log(`Added ${roleName, newEmployeeSalary,newEmployeeId } to the database`)
+                 //console.log(`Added ${newEmployee} to the database`)
+                console.log(`Added ${newEmployee, newEmployeeSalary,newEmployeeDepartment } to the database`)
                 init()
             })
     })
 }
+
 
 // Add an employee function & prompt
 function addAnEmployee() {
