@@ -147,10 +147,10 @@ function addARole() {
             name: 'newEmployeeId',
         }
     ]).then(function (response) {
-        var roleName = response.newRole
-        db.addRole(response.roleName)
+        var roleName = response.newEmployee
+        db.addRole(response.roleName, response.newEmployeeSalary,response.newEmployeeId)
             .then(([role]) => {
-                console.log(`Added ${roleName} to the database`)
+                console.log(`Added ${roleName, newEmployeeSalary,newEmployeeId } to the database`)
                 init()
             })
     })
