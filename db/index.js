@@ -28,13 +28,14 @@ class DB {
         // console.log(response.newDepartment + " department was successfully added!");
         // viewAllDepartments();
     }
-    addRole(name,salary,dept) {
-        return this.connection.promise().query('INSERT INTO role (title, salary, department_id) VALUES (?,?,?)', [name,salary,dept])
+    addRole(title,salary,dept) {
+        return this.connection.promise().query('INSERT INTO role (title, salary, department_id) VALUES (?,?,?)', [title,salary,dept])
     }
 
-    addEmployee(name) {
-        return this.connection.promise().query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?)', name)
+     addEmployee(first, last, role, manager) {
+        return this.connection.promise().query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)', [first, last, role, manager])
     }
+
     //add query for update employee role //use SET
 }
 
