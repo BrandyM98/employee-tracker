@@ -72,7 +72,7 @@ function init() {
             //     deleteAnEmployee()
             //     break;
             case 'Exit':
-                connetion.end()
+                connection.end()
                 break;
         }
     })
@@ -121,7 +121,8 @@ function addADepartment() {
         db.addDepartment(departmentName)
         .then(([department]) => {
             // console.log(department, "add Department")
-                console.table(department)
+                // console.table(department)
+                console.log(`Added ${departmentName} to the database`)
                 init()
             })
     })
@@ -132,14 +133,24 @@ function addARole() {
     inquirer.prompt([
         {
             type: 'input',
-            message: 'Please enter new role name.',
-            name: 'newRole',
+            message: 'Please enter new role for employee.',
+            name: 'newEmployee',
+        },
+        {
+            type: 'input',
+            message: 'Please enter the salary amount.',
+            name: 'newEmployeeSalary',
+        },
+        {
+            type: 'input',
+            message: 'Please enter the department ID for this new role.',
+            name: 'newEmployeeId',
         }
     ]).then(function (response) {
         var roleName = response.newRole
         db.addRole(response.roleName)
             .then(([role]) => {
-                console.table(role)
+                console.log(`Added ${roleName} to the database`)
                 init()
             })
     })
