@@ -186,7 +186,7 @@ function addAnEmployee() {
                 message: 'Please enter new employee\'s manager id.',
                 name: 'newEmployeeManagerId',
             },
-        ]).then(function (newEmployeeFirst, newEmployeeLast, newEmployeeRole, newEmployeeManagerId) {
+        ]).then(function ({newEmployeeFirst, newEmployeeLast, newEmployeeRole, newEmployeeManagerId}) {
             db.addEmployee(newEmployeeFirst, newEmployeeLast, newEmployeeRole, newEmployeeManagerId)
                 .then(([employee]) => {
                     console.log(`Added ${newEmployeeFirst, newEmployeeLast, newEmployeeRole, newEmployeeManagerId} to the database`)
