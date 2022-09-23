@@ -28,8 +28,8 @@ class DB {
         // console.log(response.newDepartment + " department was successfully added!");
         // viewAllDepartments();
     }
-    addRole(name) {
-        return this.connection.promise().query('INSERT INTO role (title, salary, department_id) VALUES (?), (?), (?)', name)
+    addRole(name,salary,dept) {
+        return this.connection.promise().query('INSERT INTO role (title, salary, department_id) VALUES (?,?,?)', [name,salary,dept])
     }
 
     addEmployee(name) {

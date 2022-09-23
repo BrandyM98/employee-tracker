@@ -130,30 +130,33 @@ function addADepartment() {
 
 // Add a role function & prompt
 function addARole() {
-    inquirer.prompt([
-            {
-                type: 'input',
-                message: 'Please enter new role for employee.',
-                name: 'newEmployee',
-            },
-            {
-                type: 'input',
-                message: 'Please enter the salary amount.',
-                name: 'newEmployeeSalary',
-            },
-            {
-                type: 'list',
-                message: 'Which department does this employee belong to.',
-                name: 'newEmployeeDepartment',
-            }
-    ]).then(function (response) {
-        var roleName = response.newEmployee
-        db.addRole(response.newEmployee, response.newEmployeeSalary,response.newEmployeeId)
-            .then(([role]) => {
-                 //console.log(`Added ${newEmployee} to the database`)
-                console.log(`Added ${newEmployee, newEmployeeSalary,newEmployeeDepartment } to the database`)
-                init()
-            })
+    db.viewDepartments().then(([departments]) => {
+        departments = departments.map(dept=>({value:dept.id,name:dept.name}))
+        inquirer.prompt([
+                {
+                    type: 'input',
+                    message: 'Please enter new role for employee.',
+                    name: 'newEmployee',
+                },
+                {
+                    type: 'input',
+                    message: 'Please enter the salary amount.',
+                    name: 'newEmployeeSalary',
+                },
+                {
+                    type: 'list',
+                    message: 'Which department does this employee belong to.',
+                    name: 'newEmployeeDepartment',
+                    choices: departments
+                }
+        ]).then(function ({newEmployee,newEmployeeSalary,newEmployeeDepartment}) {
+            db.addRole(newEmployee, newEmployeeSalary,newEmployeeDepartment)
+                .then(([role]) => {
+                     //console.log(`Added ${newEmployee} to the database`)
+                    console.log(`Added ${newEmployee, newEmployeeSalary,newEmployeeDepartment } to the database`)
+                    init()
+                })
+        })
     })
 }
 
