@@ -178,13 +178,15 @@ function addAnEmployee() {
             },
             {
                 type: 'input',
-                message: 'Please enter new employee role Id.',
+                message: 'Please select new employee\'s role.',
                 name: 'newEmployeeRole',
+                choices: employee
             },
             {
                 type: 'input',
-                message: 'Please enter new employee\'s manager id.',
+                message: 'Please select the new employee\'s manager',
                 name: 'newEmployeeManagerId',
+                choices: employee
             },
         ]).then(function ({newEmployeeFirst, newEmployeeLast, newEmployeeRole, newEmployeeManagerId}) {
             db.addEmployee(newEmployeeFirst, newEmployeeLast, newEmployeeRole, newEmployeeManagerId)
