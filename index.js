@@ -164,7 +164,7 @@ function addARole() {
 // Add an employee function & prompt
 function addAnEmployee() {
     db.viewEmployees().then(([employee]) => {
-        employee = employee.map(employ => ({ value: employ.id, name: employ.name }))
+        employee = employee.map(employ => ({ value: employee.id, name: employee.name }))
         inquirer.prompt([
             {
                 type: 'input',
@@ -178,17 +178,15 @@ function addAnEmployee() {
             },
             {
                 type: 'input',
-                message: 'Please select new employee\'s role.',
+                message: 'Please enter the new employee\'s role id.',
                 name: 'newEmployeeRole',
-                choices: employee
             },
             {
                 type: 'input',
-                message: 'Please select the new employee\'s manager',
+                message: 'Please enter the new employee\'s manager id.',
                 name: 'newEmployeeManagerId',
-                choices: employee
             },
-        ]).then(function ({newEmployeeFirst, newEmployeeLast, newEmployeeRole, newEmployeeManagerId}) {
+        ]).then(function ({ newEmployeeFirst, newEmployeeLast, newEmployeeRole, newEmployeeManagerId }) {
             db.addEmployee(newEmployeeFirst, newEmployeeLast, newEmployeeRole, newEmployeeManagerId)
                 .then(([employee]) => {
                     console.log(`Added ${newEmployeeFirst, newEmployeeLast, newEmployeeRole, newEmployeeManagerId} to the database`)
@@ -198,28 +196,37 @@ function addAnEmployee() {
     })
 }
 
-
-
-
 //update an employee role function
-function updateAnEmployee() {
-    inquirer.prompt([
-        {
-            type: 'list',
-            message: 'Which employee has a new role?',
-            name: 'employee',
-            choices: viewEmployees,
-        },
-        {
-            type: 'list',
-            message: 'What is this employees new role?',
-            name: 'employeeNewRole',
-            choices: viewRoles,
-        },
+function updateEmployeeRole() {
+    db.viewEmployees().then(([employee]) => {
+        employee = employee.map(dept => ({ value: employee.first_name, name: employee.name }))
+        inquirer.prompt([
+            {
+                type: 'list',
+                message: 'Please select which employee you wish to update.',
+                name: 'updatedThisEmployee',
+                choices: employee.first_name,
+            }
+        ]).then(function({updatedThisEmployee}){
+            db.updateEmployee(updatedThisEmployee)
+        })
+            // {
+            //     type: 'list',
+            //     message: 'Please select new role for employee.',
+            //     name: 'updatedEmployeeRole',
+            //     choices: role,
+            // }
+    //     ]).then(function ({ updatedThisEmployee, updatedEmployeeRole }) {
+    //         db.updateEmployee(updatedThisEmployee, updatedEmployeeRole)
+    //             .then(([role]) => {
+    //                 console.log(`Added ${updatedThisEmployee, updatedEmployeeRole} to the database`)
+    //                 init()
+    //             })
+    //     })
+    // })
+})
 
-    ]).then(function (response) { }
-    )
-}
+
 
 
 //exit function
