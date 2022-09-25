@@ -19,14 +19,14 @@ function init() {
                 'Add a department',
                 'Add a role',
                 'Add an employee',
-                'Update employee role',
+                // 'Update employee role',
                 // 'View employees by manager',
                 // 'View employees by department',
-                // 'Update employee managers',
+                // 'Update employee manager',
                 // 'Delete a department',
                 // 'Delete a role',
                 // 'Delete an employee',
-                // 'Exit',
+                'Exit',
             ],
         }
     ]).then((response) => {
@@ -72,8 +72,7 @@ function init() {
             //     deleteAnEmployee()
             //     break;
             case 'Exit':
-                connection.end()
-                break;
+                process.exit();
         }
     })
 }
@@ -196,43 +195,49 @@ function addAnEmployee() {
     })
 }
 
-//update an employee role function
-const updateEmployeeRole = () => {
-    db.query('SELECT first_name, last_name, id FROM employee', (err, input) => {
-        let currentEmployees = input.map(employee => ({ name: employee.first_name + " " + employee.last_name, value: employee.id }))
+// //update an employee role function
+// const updateEmployeeRole = () => {
 
-        db.query('SELECT * FROM role', (err, input) => {
-            let currentRoles = input.map(role => ({ name: role.title, value: role.id }))
+//     db.query('SELECT first_name, last_name, id FROM employee', (err, input) => {
 
-            inquirer.prompt([
-                {
-                    type: 'list',
-                    message: 'Please select which employee you wish to update.',
-                    name: 'updatedThisEmployee',
-                    choices: currentEmployees,
-                },
-                {
-                    type: 'list',
-                    message: 'What is the new role for this employee?',
-                    name: 'updatedEmployeeRole',
-                    choices: currentRoles
-                }
-            ])
-                .then((response) => {
-                    db.query(`UPDATE employee SET role_id = ${response.title} WHERE id = ${response.employee}`, (err, input) => {
-                        console.log(`The employee has been updated in the database!`);
-                        init();
-                    });
-                });
-        });
-    });
-};
+//         let currentEmployees = input.map(employee => ({ name: employee.first_name + " " + employee.last_name, value: employee.id }))
+
+//         db.query('SELECT * FROM role', (err, input) => {
+            
+//             let currentRoles = input.map(role => ({ name: role.title, value: role.id }))
+
+//             inquirer.prompt([
+//                 {
+//                     type: 'list',
+//                     message: 'Please select which employee you wish to update.',
+//                     name: 'updatedThisEmployee',
+//                     choices: currentEmployees,
+//                 },
+//                 {
+//                     type: 'list',
+//                     message: 'What is the new role for this employee?',
+//                     name: 'updatedEmployeeRole',
+//                     choices: currentRoles
+//                 }
+//             ])
+//                 .then((response) => {
+//                     db.query(`UPDATE employee SET role_id = ${response.title} WHERE id = ${response.employee}`, (err, input) => {
+//                         console.log(`The employee has been updated in the database!`);
+//                         init();
+//                     });
+//                 });
+//         });
+//     });
+// };
 
 
 
 
 //exit function
-
+function end() {
+    console.log('Bye!');
+    process.end
+}
 
 init();
 
