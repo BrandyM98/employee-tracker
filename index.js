@@ -4,8 +4,6 @@ const { viewEmployees, viewRoles } = require('./db');
 require('console.table');
 const db = require('./db');
 
-//inquirer prompt
-
 function init() {
     inquirer.prompt([
         {
@@ -19,18 +17,10 @@ function init() {
                 'Add a department',
                 'Add a role',
                 'Add an employee',
-                // 'Update employee role',
-                // 'View employees by manager',
-                // 'View employees by department',
-                // 'Update employee manager',
-                // 'Delete a department',
-                // 'Delete a role',
-                // 'Delete an employee',
                 'Exit',
             ],
         }
     ]).then((response) => {
-        //what is chosen will send to another function
         switch (response.options) {
             case 'View all departments':
                 viewAllDepartments()
@@ -53,33 +43,12 @@ function init() {
             case 'Update employee role':
                 updateEmployeeRole()
                 break;
-            // case 'Update employee managers':
-            //     updateEmployeeManagers()
-            //     break;
-            // case 'View employees by manager':
-            //     viewEmployeesByManager()
-            //     break;
-            // case 'View employees by department':
-            //     viewEmployeesByDepartment()
-            //     break;
-            // case 'Delete a department':
-            //     deleteADepartment()
-            //     break;
-            // case 'Delete a role':
-            //     deleteARole()
-            //     break;
-            // case 'Delete an employee':
-            //     deleteAnEmployee()
-            //     break;
             case 'Exit':
                 process.exit();
         }
     })
 }
 
-//where I will pull from my queries  
-
-//view all departments function
 function viewAllDepartments() {
     db.viewDepartments()
         .then(([departments]) => {
@@ -116,11 +85,8 @@ function addADepartment() {
         }
     ]).then(function (response) {
         var departmentName = response.newDepartment
-        // console.log(department, "add Department")
         db.addDepartment(departmentName)
             .then(([department]) => {
-                // console.log(department, "add Department")
-                // console.table(department)
                 console.log(`Added ${departmentName} to the database`)
                 init()
             })
@@ -151,7 +117,6 @@ function addARole() {
         ]).then(function ({ newEmployee, newEmployeeSalary, newEmployeeDepartment }) {
             db.addRole(newEmployee, newEmployeeSalary, newEmployeeDepartment)
                 .then(([role]) => {
-                    //console.log(`Added ${newEmployee} to the database`)
                     console.log(`Added ${newEmployee, newEmployeeSalary, newEmployeeDepartment} to the database`)
                     init()
                 })
@@ -195,44 +160,6 @@ function addAnEmployee() {
     })
 }
 
-// //update an employee role function
-// const updateEmployeeRole = () => {
-
-//     db.query('SELECT first_name, last_name, id FROM employee', (err, input) => {
-
-//         let currentEmployees = input.map(employee => ({ name: employee.first_name + " " + employee.last_name, value: employee.id }))
-
-//         db.query('SELECT * FROM role', (err, input) => {
-            
-//             let currentRoles = input.map(role => ({ name: role.title, value: role.id }))
-
-//             inquirer.prompt([
-//                 {
-//                     type: 'list',
-//                     message: 'Please select which employee you wish to update.',
-//                     name: 'updatedThisEmployee',
-//                     choices: currentEmployees,
-//                 },
-//                 {
-//                     type: 'list',
-//                     message: 'What is the new role for this employee?',
-//                     name: 'updatedEmployeeRole',
-//                     choices: currentRoles
-//                 }
-//             ])
-//                 .then((response) => {
-//                     db.query(`UPDATE employee SET role_id = ${response.title} WHERE id = ${response.employee}`, (err, input) => {
-//                         console.log(`The employee has been updated in the database!`);
-//                         init();
-//                     });
-//                 });
-//         });
-//     });
-// };
-
-
-
-
 //exit function
 function end() {
     console.log('Bye!');
@@ -240,19 +167,3 @@ function end() {
 }
 
 init();
-
-
-
-
-
-
-//these are for bonus!
-
-// 'Update employee managers':
-// 'View employees by manager':
-// 'View employees by department':
-// 'Delete a department':
-// 'Delete a role':
-// 'Delete an employee':
-// 'Exit':
-
